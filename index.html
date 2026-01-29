@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>驚喜大抽獎</title>
+    <style>
+        body { font-family: 'PingFang TC', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 400px; }
+        h1 { color: #333; margin-bottom: 20px; }
+        #display { font-size: 1.5rem; font-weight: bold; color: #e74c3c; height: 60px; display: flex; align-items: center; justify-content: center; border: 2px dashed #ddd; border-radius: 10px; margin-bottom: 20px; padding: 10px; }
+        button { background-color: #3498db; color: white; border: none; padding: 15px 30px; font-size: 1.1rem; border-radius: 50px; cursor: pointer; transition: transform 0.2s, background-color 0.2s; }
+        button:hover { background-color: #2980b9; transform: scale(1.05); }
+        button:disabled { background-color: #bdc3c7; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎁 陳嘎逼尾牙抽獎</h1>
+    <div id="display">準備好了嗎？</div>
+    <button id="drawBtn" onclick="startDraw()">點我抽獎</button>
+</div>
+
+<script>
+    const prizes = [
+        "新台幣 200 元", "新台幣 800 元", "新台幣 1000 元", 
+        "新台幣 2000 元 ", "免費搥背按摩", 
+        "搶票機器人 🤖", "PINOCOCO 🍝", "你請客我付錢券 🎫"
+    ];
+
+    function startDraw() {
+        const btn = document.getElementById('drawBtn');
+        const display = document.getElementById('display');
+        btn.disabled = true;
+        
+        let counter = 0;
+        const interval = setInterval(() => {
+            display.innerText = prizes[Math.floor(Math.random() * prizes.length)];
+            counter++;
+            if (counter > 20) {
+                clearInterval(interval);
+                const finalPrize = prizes[Math.floor(Math.random() * prizes.length)];
+                display.innerText = "🎊 " + finalPrize + " 🎊";
+                btn.disabled = false;
+                // 增加一點點驚喜感
+                if(finalPrize.includes("2000")) alert("牛逼");
+            }
+        }, 100);
+    }
+</script>
+
+</body>
+</html>
